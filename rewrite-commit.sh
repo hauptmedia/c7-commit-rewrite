@@ -48,7 +48,8 @@ COMMIT_MESSAGE=$(git log -1 --pretty=%B "$COMMIT_SHA")
 # Append a backport note to the commit message
 COMMIT_MESSAGE+="
 
-This is a backported commit from camunda-bpm-platform. Original author: $AUTHOR_NAME <$AUTHOR_EMAIL>"
+Backported commit $COMMIT_SHA from the camunda-bpm-platform repository.
+Original author: $AUTHOR_NAME <$AUTHOR_EMAIL>"
 
 
 # Change to the Operaton repository directory
