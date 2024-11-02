@@ -7,6 +7,7 @@ if [ -z "$1" ]; then
 fi
 
 COMMIT_SHA=$1
+BRANCH_NAME="backport-$COMMIT_SHA"
 
 # Define paths to the source (Camunda) and target (Operaton) repositories
 CAMUNDA_REPO_PATH="$(pwd)/camunda-bpm-platform"
@@ -43,6 +44,11 @@ COMMIT_MESSAGE=$(git log -1 --pretty=%B "$COMMIT_SHA")
 
 # Change to the Operaton repository directory
 cd "$OPERATON_REPO_PATH" || exit 1
+
+# Create a new branch at the commit before the specified SHA
+git checkout -b "$BRANCH_NAME"
+
+echo Branch $BRANCH_NAME created
 
 # Apply the modified patch
 git apply --verbose "$PATCH_FILE"
