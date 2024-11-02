@@ -35,7 +35,7 @@ sed_inplace 's/camunda/operaton/g' "$PATCH_FILE"
 # fix all wrong replacements
 sed_inplace 's/operaton\.com/camunda\.com/g' "$PATCH_FILE"
 sed_inplace 's|https://github.com/operaton/operaton-bpm-platform|https://github.com/camunda/camunda-bpm-platform|g' "$PATCH_FILE"
-sed_inplace 's/Operaton Services GmbH/Camunda Services GmbH/g' "$FILE"
+sed_inplace 's/Operaton Services GmbH/Camunda Services GmbH/g' "$PATCH_FILE"
 
 
 # Extract the original commit message
@@ -48,4 +48,5 @@ cd "$OPERATON_REPO_PATH" || exit 1
 git apply --verbose "$PATCH_FILE"
 
 # Create a new commit with the original commit message
+git add --all
 git commit -am "$COMMIT_MESSAGE"
