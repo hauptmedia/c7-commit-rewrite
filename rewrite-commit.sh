@@ -27,7 +27,7 @@ sed_inplace() {
 cd "$CAMUNDA_REPO_PATH" || exit 1
 
 # Export the specified commit as a patch and capture the generated file name
-PATCH_FILE=$(git format-patch -1 "$COMMIT_SHA" -U10 -o "$PATCH_DIR" | tail -n 1)
+PATCH_FILE=$(git format-patch -1 "$COMMIT_SHA" -o "$PATCH_DIR" | tail -n 1)
 
 # Replace all instances of 'camunda' with 'operaton'
 sed_inplace 's/Camunda/Operaton/g' "$PATCH_FILE"
@@ -45,10 +45,12 @@ COMMIT_MESSAGE=$(git log -1 --pretty=%B "$COMMIT_SHA")
 # Change to the Operaton repository directory
 cd "$OPERATON_REPO_PATH" || exit 1
 
+# Checkout main branch and pull the latest changes
+git checkout main
+git pull origin main
+
 # Create a new branch at the commit before the specified SHA
 git checkout -b "$BRANCH_NAME"
-
-echo Branch $BRANCH_NAME created
 
 # Apply the modified patch
 git apply --verbose "$PATCH_FILE"
