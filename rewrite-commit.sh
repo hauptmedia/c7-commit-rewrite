@@ -28,12 +28,14 @@ cd "$CAMUNDA_REPO_PATH" || exit 1
 # Export the specified commit as a patch and capture the generated file name
 PATCH_FILE=$(git format-patch -1 "$COMMIT_SHA" -U10 -o "$PATCH_DIR" | tail -n 1)
 
-# Replace all instances of 'camunda' (case-insensitive) with 'operaton'
+# Replace all instances of 'camunda' with 'operaton'
 sed_inplace 's/Camunda/Operaton/g' "$PATCH_FILE"
 sed_inplace 's/camunda/operaton/g' "$PATCH_FILE"
 
+# fix all wrong replacements
 sed_inplace 's/operaton\.com/camunda\.com/g' "$PATCH_FILE"
 sed_inplace 's|https://github.com/operaton/operaton-bpm-platform|https://github.com/camunda/camunda-bpm-platform|g' "$PATCH_FILE"
+sed_inplace 's/Operaton Services GmbH/Camunda Services GmbH/g' "$FILE"
 
 
 # Extract the original commit message
