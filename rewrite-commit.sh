@@ -81,6 +81,10 @@ else
   echo ""
   echo "Error: Failed to apply the patch for commit $COMMIT_SHA."
   echo "Please apply patch file and resolve conflicts manually."
+  echo "A working branch has been automatically created."
+  echo ""
+  echo "Branch:"
+  echo $BRANCH_NAME
   echo ""
   echo "Patch file:"
   echo $PATCH_FILE
