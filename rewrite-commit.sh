@@ -59,12 +59,32 @@ cd "$OPERATON_REPO_PATH" || exit 1
 git checkout main
 git pull origin main
 
-# Create a new branch at the commit before the specified SHA
+# Create a new branch from master
 git checkout -b "$BRANCH_NAME"
 
-# Apply the modified patch
-git apply --verbose "$PATCH_FILE"
+# Attempt to apply the patch
+if git apply --verbose "$PATCH_FILE"; then
+  # If patch could be automatically applied, create a commit from it
+  git add --all
+  git commit -am "$COMMIT_MESSAGE"
 
-# Create a new commit with the original commit message
-git add --all
-git commit -am "$COMMIT_MESSAGE"
+  # automatically push this commit if we have configured a remote named "fork"
+  if git remote | grep -q "^fork$"; then
+    echo "Remote 'fork' detected. Pushing branch '$BRANCH_NAME' to 'fork'."
+    git push fork "$BRANCH_NAME"
+  fi
+
+  # cleanup patch file
+  rm "$PATCH_FILE"
+
+else
+  echo ""
+  echo "Error: Failed to apply the patch for commit $COMMIT_SHA."
+  echo "Please apply patch file and resolve conflicts manually."
+  echo ""
+  echo "Patch file:"
+  echo $PATCH_FILE
+  echo ""
+  echo "Commit Message:"
+  echo $COMMIT_MESSAGE
+fi
