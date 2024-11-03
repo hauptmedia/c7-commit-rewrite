@@ -1,4 +1,4 @@
-# Git Repository Porting Scripts
+# Commit Porting Scripts for C7 to Operaton Repository
 
 This repository contains scripts to assist in porting commits from the `camunda-bpm-platform` repository to the `operaton` repository. The scripts automate cloning the repositories, creating patches, rewriting terms, and applying the patches.
 
@@ -15,6 +15,23 @@ This script clones the `camunda-bpm-platform` and `operaton` repositories into t
 ```bash
 ./init-git.sh
 ```
+
+#### Setting Up a Remote Named fork
+
+If you want to automatically push the backported branch to a remote, add a remote named fork. Replace <url-to-your-fork> with the URL of your forked repository.
+
+```bash
+cd operaton
+git remote add fork <url-to-your-fork>
+```
+
+For example
+
+```bash
+cd operaton
+git remote add fork https://github.com/hauptmedia/operaton.git
+```
+
 
 ### rewrite-commit.sh
 
