@@ -37,6 +37,7 @@ sed_inplace 's/camunda/operaton/g' "$PATCH_FILE"
 sed_inplace 's/operaton\.com/camunda\.com/g' "$PATCH_FILE"
 sed_inplace 's|https://github.com/operaton/operaton-bpm-platform|https://github.com/camunda/camunda-bpm-platform|g' "$PATCH_FILE"
 sed_inplace 's/Operaton Services GmbH/Camunda Services GmbH/g' "$PATCH_FILE"
+sed_inplace 's/Operaton licenses/Camunda licenses/g' "$PATCH_FILE"
 
 # Extract the original author information from the commit
 AUTHOR_NAME=$(git log -1 --format='%an' "$COMMIT_SHA")
