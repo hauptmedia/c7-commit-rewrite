@@ -79,17 +79,16 @@ if git apply --verbose "$PATCH_FILE"; then
   rm "$PATCH_FILE"
 
 else
-  echo ""
-  echo "Error: Failed to apply the patch for commit $COMMIT_SHA."
-  echo "Please apply patch file and resolve conflicts manually."
-  echo "A working branch has been automatically created."
-  echo ""
-  echo "Branch:"
-  echo $BRANCH_NAME
-  echo ""
-  echo "Patch file:"
-  echo $PATCH_FILE
-  echo ""
-  echo "Commit Message:"
-  echo $COMMIT_MESSAGE
+  cat <<EOF
+Error: Failed to apply the patch for commit $COMMIT_SHA.
+Please apply patch file and resolve conflicts manually.
+A working branch has been automatically created.
+
+Branch:           $BRANCH_NAME
+Patch file:       $PATCH_FILE
+Commit Message:
+
+$COMMIT_MESSAGE
+
+EOF
 fi
