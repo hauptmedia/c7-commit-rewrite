@@ -80,6 +80,7 @@ if git apply --verbose "$PATCH_FILE"; then
 
 else
   cat <<EOF
+
 Error: Failed to apply the patch for commit $COMMIT_SHA.
 Please apply patch file and resolve conflicts manually.
 A working branch has been automatically created.
