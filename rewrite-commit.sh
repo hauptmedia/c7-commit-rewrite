@@ -53,7 +53,7 @@ git log -1 --pretty=%B "$COMMIT_SHA" > "$TEMP_COMMIT_MESSAGE_FILE"
 # commit message (e.g., "related to #4315" to "related to camunda/camunda-bpm-platform#4315")
 sed_inplace 's/[Rr]elated to #([0-9]+)/related to camunda\/camunda-bpm-platform#\1/g' "$TEMP_COMMIT_MESSAGE_FILE"
 
-# Append backport messag to commit
+# Append a backport note to the commit message
   cat <<EOF >>"$TEMP_COMMIT_MESSAGE_FILE"
 
 Backported commit $COMMIT_SHA from the camunda-bpm-platform repository.
