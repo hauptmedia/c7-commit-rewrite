@@ -17,9 +17,9 @@ PATCH_DIR="$(pwd)/patches"
 # Define a function to handle sed compatibility
 sed_inplace() {
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    sed -i '' "$@"
+    sed -E -i '' "$@"
   else
-    sed -i "$@"
+    sed -E -i "$@"
   fi
 }
 
@@ -43,15 +43,28 @@ sed_inplace 's/Operaton licenses/Camunda licenses/g' "$PATCH_FILE"
 AUTHOR_NAME=$(git log -1 --format='%an' "$COMMIT_SHA")
 AUTHOR_EMAIL=$(git log -1 --format='%ae' "$COMMIT_SHA")
 
-# Extract the original commit message
-COMMIT_MESSAGE=$(git log -1 --pretty=%B "$COMMIT_SHA")
+# create a temp file for creating the commit message
+TEMP_COMMIT_MESSAGE_FILE=$(mktemp)
 
-# Append a backport note to the commit message
-COMMIT_MESSAGE+="
+# Extract the original commit message
+git log -1 --pretty=%B "$COMMIT_SHA" > "$TEMP_COMMIT_MESSAGE_FILE"
+
+# Rewrite issue references in the
+# commit message (e.g., "related to #4315" to "related to camunda/camunda-bpm-platform#4315")
+sed_inplace 's/[Rr]elated to #([0-9]+)/related to camunda\/camunda-bpm-platform#\1/g' "$TEMP_COMMIT_MESSAGE_FILE"
+
+# Append backport messag to commit
+  cat <<EOF >>"$TEMP_COMMIT_MESSAGE_FILE"
 
 Backported commit $COMMIT_SHA from the camunda-bpm-platform repository.
 Original author: $AUTHOR_NAME <$AUTHOR_EMAIL>"
+EOF
 
+# Read the modified commit message back into the COMMIT_MESSAGE variable
+COMMIT_MESSAGE=$(cat "$TEMP_COMMIT_MESSAGE_FILE")
+
+# Remove the temporary commit message file
+rm "$TEMP_COMMIT_MESSAGE_FILE"
 
 # Change to the Operaton repository directory
 cd "$OPERATON_REPO_PATH" || exit 1
