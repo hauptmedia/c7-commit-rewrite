@@ -51,7 +51,7 @@ git log -1 --pretty=%B "$COMMIT_SHA" > "$TEMP_COMMIT_MESSAGE_FILE"
 
 # Rewrite issue references in the
 # commit message (e.g., "related to #4315" to "related to camunda/camunda-bpm-platform#4315")
-sed_inplace 's/[Rr]elated to #([0-9]+)/related to camunda\/camunda-bpm-platform#\1/g' "$TEMP_COMMIT_MESSAGE_FILE"
+sed_inplace 's/[Rr]elated to[:]* #([0-9]+)/related to camunda\/camunda-bpm-platform#\1/g' "$TEMP_COMMIT_MESSAGE_FILE"
 
 # Append a backport note to the commit message
   cat <<EOF >>"$TEMP_COMMIT_MESSAGE_FILE"
