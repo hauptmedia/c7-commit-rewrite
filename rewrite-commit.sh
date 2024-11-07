@@ -57,7 +57,7 @@ sed_inplace 's/[Rr]elated to[:]* #([0-9]+)/related to camunda\/camunda-bpm-platf
   cat <<EOF >>"$TEMP_COMMIT_MESSAGE_FILE"
 
 Backported commit $COMMIT_SHA from the camunda-bpm-platform repository.
-Original author: $AUTHOR_NAME <$AUTHOR_EMAIL>"
+Original author: $AUTHOR_NAME <$AUTHOR_EMAIL>
 EOF
 
 # Read the modified commit message back into the COMMIT_MESSAGE variable
