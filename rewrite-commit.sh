@@ -32,6 +32,7 @@ PATCH_FILE=$(git format-patch -1 "$COMMIT_SHA" -o "$PATCH_DIR" | tail -n 1)
 # Replace all instances of 'camunda' with 'operaton'
 sed_inplace 's/Camunda/Operaton/g' "$PATCH_FILE"
 sed_inplace 's/camunda/operaton/g' "$PATCH_FILE"
+sed_inplace 's/CAMUNDA/OPERATON/g' "$PATCH_FILE"
 
 # fix all wrong replacements
 sed_inplace 's/operaton\.com/camunda\.com/g' "$PATCH_FILE"
