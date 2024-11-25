@@ -33,14 +33,14 @@ git remote add fork https://github.com/hauptmedia/operaton.git
 ```
 
 
-### rewrite-commit.sh
+### rewrite-commit-c7.sh
 
 This script automates the process of porting a specific commit from the camunda-bpm-platform repository to the operaton repository. It takes a commit SHA as an argument, generates a patch from it, rewrites specific terms (e.g., changes camunda to operaton), and applies the modified patch in the operaton repository with the original commit message.
 
 #### Usage
 
 ```bash
-./rewrite-commit.sh <commit-sha>
+./rewrite-commit-c7.sh <commit-sha>
 ```
 
 For example
@@ -49,7 +49,7 @@ For example
 ```bash
 # Port commit abc1234 from camunda-bpm-platform to operaton
 
-./rewrite-commit.sh abc1234
+./rewrite-commit-c7.sh abc1234
 ```
 
 ### Manually Applying a Patch in IntelliJ
